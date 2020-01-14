@@ -1,18 +1,11 @@
 import axios from 'axios';
 import email from './email.js';
+import searchTickets from './searchTickets.js';
 
 const selfAssignTickets = () => {
-  return axios
-    .get(
-      'https://pricereporter.freshdesk.com/api/v2/tickets?&updated_since=2018-01-01T00:00:00.000z&per_page=100&order_by=created_at',
-      {
-        headers: { Authorization: process.env.API_KEY },
-      }
-    )
+  return searchTickets('status:2 OR status:3 OR status:6 OR status:7')
     .then(results => {
-      const tickets = results.data.filter(
-        ticket => ticket.responder_id === null && ticket.status !== 5
-      );
+      const tickets = results.filter(ticket => ticket.responder_id === null);
       console.log(tickets.length);
       return Promise.all(
         tickets.map(ticket => {
@@ -42,5 +35,4 @@ const selfAssignTickets = () => {
     });
 };
 
-// setInterval(selfAssignTickets, 60000);
-selfAssignTickets();
+setInterval(selfAssignTickets, 60000);
