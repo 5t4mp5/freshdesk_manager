@@ -27,7 +27,9 @@ export default () => {
     .then(results => {
       results.forEach(result => {
         const { id, subject, description } = result.data;
-        email(id, subject, description);
+        const emailSubject = `Freshdesk Ticket: ${id} -- ${subject}`;
+        const body = `<div><a href=https://pricereporter.freshdesk.com/a/tickets/${id}>TICKET</a></div>${description}`;
+        email(emailSubject, body);
       });
     })
     .catch(e => {

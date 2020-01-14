@@ -9,12 +9,12 @@ const transport = nodemailer.createTransport({
   },
 });
 
-const composeMessage = (id, subject, description) => {
+const composeMessage = (subject, body) => {
   return {
     from: 'davids@pricereporter.com',
     to: 'davids@pricereporter.com',
-    subject: `Freshdesk Ticket ${id}: ${subject}`,
-    html: `<div><a href=https://pricereporter.freshdesk.com/a/tickets/${id}>TICKET</a></div>${description}`,
+    subject,
+    html: body,
   };
 };
 
