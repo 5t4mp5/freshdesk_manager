@@ -42,4 +42,5 @@ const selfAssignTickets = () => {
     });
 };
 
-setInterval(selfAssignTickets, 60000);
+// setInterval(selfAssignTickets, 60000);
+selfAssignTickets();
