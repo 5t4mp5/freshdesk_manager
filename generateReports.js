@@ -11,6 +11,15 @@ export const aging = status => {
     waiting_customer: 6,
     waiting_third_party: 7,
   };
+
+  const titleMap = {
+    open: 'Open',
+    pending: 'Pending',
+    resolved: 'Resolved',
+    closed: 'Closed',
+    waiting_customer: 'Waiting for Customer',
+    waiting_third_party: 'Waiting for Third Party',
+  };
   return searchTickets(`status:${statusMap[status]}`).then(tickets => {
     const reportData = tickets
       .filter(ticket => {
@@ -23,9 +32,10 @@ export const aging = status => {
         console.log(id);
         return { id, subject, created_at, updated_at };
       });
-    const title = 'Aging Tickets: Waiting for Customer';
-    const headers = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
-    const report = renderReport(title, headers, reportData);
-    email(title, report);
+    const title = `Aging Tickets: ${titleMap[status]}`;
+    const printedHeaders = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
+    const headers = ['id', 'subject', 'created_at', 'updated_at'];
+    const report = renderReport(headers, printedHeaders, reportData);
+    email(title, title, [{ filename: `${title}.csv`, content: report }]);
   });
 };

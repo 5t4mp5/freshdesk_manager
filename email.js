@@ -9,12 +9,13 @@ const transport = nodemailer.createTransport({
   },
 });
 
-const composeMessage = (subject, body) => {
+const composeMessage = (subject, body, attachments = []) => {
   return {
     from: 'davids@pricereporter.com',
     to: 'davids@pricereporter.com',
     subject,
     html: body,
+    attachments,
   };
 };
 
