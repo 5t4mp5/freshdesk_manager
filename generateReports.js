@@ -36,6 +36,8 @@ export const aging = status => {
     const printedHeaders = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
     const headers = ['id', 'subject', 'created_at', 'updated_at'];
     const report = renderReport(headers, printedHeaders, reportData);
-    email(title, title, [{ filename: `${title}.csv`, content: report }]);
+    email(title, title, [
+      { filename: `${title}.csv`, content: report },
+    ]).then(() => console.log('REPORT SENT'));
   });
 };
