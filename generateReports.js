@@ -38,6 +38,6 @@ export const aging = status => {
     const report = renderReport(headers, printedHeaders, reportData);
     email(title, title, [
       { filename: `${title}.csv`, content: report },
-    ]).then(() => console.log('REPORT SENT'));
+    ]).then(() => console.log(`${title.toUpperCase()} REPORT SENT`));
   });
 };
