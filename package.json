@@ -1,6 +1,9 @@
 {
   "name": "freshdesk_manager",
   "version": "1.0.0",
+  "engines": {
+    "node": "13.6.0"
+  },
   "description": "",
   "type": "module",
   "main": "index.js",
