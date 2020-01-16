@@ -6,10 +6,10 @@ export default () => {
   return searchTickets('status:2 OR status:3 OR status:6 OR status:7')
     .then(results => {
       const tickets = results.filter(ticket => ticket.responder_id === null);
-      console.log(tickets.length);
+      if (!tickets) console.log('NO NEW TICKETS');
       return Promise.all(
         tickets.map(ticket => {
-          console.log('ID: ', ticket.id);
+          console.log('NEW TICKET ASSIGNED: ', ticket.id);
           return axios
             .put(
               `https://pricereporter.freshdesk.com/api/v2/tickets/${ticket.id}`,
