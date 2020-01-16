@@ -29,9 +29,13 @@ export const aging = status => {
       })
       .map(ticket => {
         const { id, subject, created_at, updated_at } = ticket;
-        console.log(id);
         return { id, subject, created_at, updated_at };
-      });
+      })
+      .sort((a, b) =>
+        new Date(a.updated_at).getTime() < new Date(b.updated_at).getTime()
+          ? -1
+          : 1
+      );
     const title = `Aging Tickets: ${titleMap[status]}`;
     const printedHeaders = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
     const headers = ['id', 'subject', 'created_at', 'updated_at'];
