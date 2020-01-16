@@ -6,7 +6,7 @@ export default () => {
   return searchTickets('status:2 OR status:3 OR status:6 OR status:7')
     .then(results => {
       const tickets = results.filter(ticket => ticket.responder_id === null);
-      if (!tickets) console.log('NO NEW TICKETS');
+      if (!tickets.length) console.log('NO NEW TICKETS');
       return Promise.all(
         tickets.map(ticket => {
           console.log('NEW TICKET ASSIGNED: ', ticket.id);
