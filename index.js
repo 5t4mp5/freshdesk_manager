@@ -4,8 +4,8 @@ import schedule from 'node-schedule';
 
 //set up scheduler for morning reports
 const morningRule = new schedule.RecurrenceRule();
-morningRule.hour = 12;
-morningRule.minute = 5;
+morningRule.hour = 8;
+morningRule.minute = 0;
 
 const openReportJob = schedule.scheduleJob(morningRule, () =>
   generateReports.aging('open').catch(e => console.log(e))
