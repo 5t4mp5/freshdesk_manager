@@ -4,7 +4,7 @@ import schedule from 'node-schedule';
 //set up scheduler for morning reports
 const morningRule = new schedule.RecurrenceRule();
 morningRule.hour = 13;
-morningRule.minute = 00;
+morningRule.minute = 0;
 
 export default statusReports =>
   Promise.all(
