@@ -39,8 +39,12 @@ export const aging = status => {
     const title = `Aging Tickets: ${titleMap[status]}`;
     const printedHeaders = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
     const headers = ['id', 'subject', 'created_at', 'updated_at'];
+    if (!reportData.length)
+      return email(`${title}: NO TICKETS TO REPORT`, 'NO TICKETS').then(() =>
+        console.log(`${title.toUpperCase()} NO TICKETS TO REPORT`)
+      );
     const report = renderReport(headers, printedHeaders, reportData);
-    email(title, title, [
+    return email(title, title, [
       { filename: `${title}.csv`, content: report },
     ]).then(() => console.log(`${title.toUpperCase()} REPORT SENT`));
   });
