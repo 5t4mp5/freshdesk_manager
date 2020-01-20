@@ -30,7 +30,13 @@ export default status => {
       })
       .map(ticket => {
         const { id, subject, created_at, updated_at } = ticket;
-        return { id, subject, created_at, updated_at };
+        return {
+          id,
+          subject,
+          created_at,
+          updated_at,
+          link: `https://pricereporter.freshdesk.com/a/tickets/${id}`,
+        };
       })
       .sort((a, b) =>
         new Date(a.updated_at).getTime() < new Date(b.updated_at).getTime()
@@ -38,8 +44,14 @@ export default status => {
           : 1
       );
     const title = `Aging Tickets: ${titleMap[status]}`;
-    const printedHeaders = ['Ticket #', 'Subject', 'Created', 'Last Updated'];
-    const headers = ['id', 'subject', 'created_at', 'updated_at'];
+    const printedHeaders = [
+      'Ticket #',
+      'Subject',
+      'Created',
+      'Last Updated',
+      'Link',
+    ];
+    const headers = ['id', 'subject', 'created_at', 'updated_at', 'link'];
     if (!reportData.length)
       return email(`${title}: NO TICKETS TO REPORT`, 'NO TICKETS').then(() =>
         console.log(`${title.toUpperCase()} NO TICKETS TO REPORT`)
